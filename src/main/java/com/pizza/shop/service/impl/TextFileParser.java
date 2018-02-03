@@ -1,4 +1,4 @@
-package com.pizza.shop.service;
+package com.pizza.shop.service.impl;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,22 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.pizza.shop.model.InputFile;
 import com.pizza.shop.model.Order;
-import com.pizza.shop.model.OutputFile;
+import com.pizza.shop.service.DataParser;
 import com.pizza.shop.validate.Constant;
 
 /***
- * Java file for handling file related operation
+ * Implementation class for processing data from TXT file
  * 
  * @author Satish
  *
  */
-public class FileProcessor {
+public class TextFileParser implements DataParser {
 
-	
+
 	private BufferedReader bufferReader;
 	
 	/***
@@ -32,10 +34,9 @@ public class FileProcessor {
 	 * @param sourceName
 	 * @throws FileNotFoundException
 	 */
-	public void readInputFile(String sourceName) throws FileNotFoundException {
-		InputFile fileReader = new InputFile();
-		fileReader.setInputSource(sourceName);
-		bufferReader = new BufferedReader(new FileReader(fileReader.getInputSource()));
+	public void readInputObject(String sourceName) throws FileNotFoundException {
+		
+		bufferReader = new BufferedReader(new FileReader(sourceName));
 	}
 	
 	/***
@@ -46,9 +47,7 @@ public class FileProcessor {
 	 * @throws IOException
 	 */
 	public File createOuputFile(String destPath) throws IOException {
-		OutputFile fileWrite = new OutputFile();
-		fileWrite.setOuputSource(destPath);
-		File file = new File(fileWrite.getOuputSource());
+		File file = new File(destPath);
 		if(!file.isDirectory() && !file.exists())
 			new File(file.getParent() != null ?file.getParent():"").mkdirs();
 		file.delete();
@@ -59,11 +58,11 @@ public class FileProcessor {
 	/***
 	 * Constructing list of Order object
 	 * 
-	 * @return List<Order>
+	 * @return List<Object>
 	 * @throws IOException
 	 */
-	public List<Order> constructOrderList() throws IOException {
-		List<Order> orderList = new ArrayList<>();
+	public List<Object> constructObjectList() throws IOException {
+		List<Object> orderList = new ArrayList<>();
 		String line;
 		Order order;
 		line = bufferReader.readLine();
@@ -86,17 +85,19 @@ public class FileProcessor {
 	 * @return boolean
 	 * @throws IOException 
 	 */
-	public boolean writeOutputFile(List<Order> orderList, String destPath) throws IOException {
+	public boolean writeOutputFile(List<Object> orderList, String destPath, Comparator<? super Object> c) throws IOException {
 		File file = createOuputFile(destPath);
-		
 		boolean outPutFileStatus = true;
 		FileWriter fileWriter = null;
 		PrintWriter printWriter = null;
+		Order order;
 		try {
 			fileWriter = new FileWriter(file.getAbsolutePath());
 			printWriter = new PrintWriter(fileWriter);
 			printWriter.printf("%-20s %s%n","Order","Time");
-			for (Order order : orderList) {
+			Collections.sort(orderList, c);
+			for (Object object : orderList) {
+				order = (Order)object;
 				printWriter.printf("%-20s %s%n", order.getName(),
 						order.getTime());
 			}
@@ -148,4 +149,5 @@ public class FileProcessor {
 		}
 		return headerStatus;
 	}
+
 }

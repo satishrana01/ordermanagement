@@ -4,10 +4,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
+import com.pizza.shop.factory.DataParserFactory;
 import com.pizza.shop.model.Order;
+import com.pizza.shop.model.SortByOrderName;
 import com.pizza.shop.model.UserInput;
-import com.pizza.shop.service.FileProcessor;
+import com.pizza.shop.service.DataParser;
 import com.pizza.shop.validate.Constant;
+import com.pizza.shop.validate.Utility;
 import com.pizza.shop.validate.ValidateInput;
 /***
  * Main java file to start execution of the program
@@ -35,19 +38,26 @@ public class RunMain {
 		
 		if (outputMessage.isEmpty()) {// check the output message string, don't process if found any error
 			try {
-				// Read the input file
-				FileProcessor fileProcessor = new FileProcessor();
-				fileProcessor.readInputFile(userInput.getSourceFile());
-
-				// get list of order object
-				List<Order> orderList = fileProcessor.constructOrderList();
+				
+				String extenstion = Utility.getExtension(userInput.getSourceFile());
+				
+				/***
+				 *  call factory class to return object of subclass
+				 */
+				DataParser dataParserObject = DataParserFactory.getInstance().getParserObject(extenstion);
+				dataParserObject.readInputObject(userInput.getSourceFile());
+				List<Object> orderList = dataParserObject.constructObjectList();// List of object
 				
 				if(!orderList.isEmpty()) {
-					//Sort it in lexicographical order
-					Collections.sort(orderList);
 					// Write the output File
-					// Return the status whether file written successfully or not.
-					status = fileProcessor.writeOutputFile(orderList, userInput.getDestFile());
+					
+					/***
+					 * implemented the strategy pattern here where user's has choice to decide at run time
+					 * whether to sort the object by name or by time by passing appropriate Comparator class object.
+					 * considering default as order by name 
+					 */
+					
+					status = dataParserObject.writeOutputFile(orderList, userInput.getDestFile(),new SortByOrderName());
 				}
 				
 			} catch(Exception e) {

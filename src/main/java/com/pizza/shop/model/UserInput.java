@@ -8,14 +8,15 @@ package com.pizza.shop.model;
  */
 public class UserInput {
 
+	private String sourceFile;
+
+	private String destFile;
+
 	public UserInput(String sourceFile, String destFile) {
 		this.sourceFile = sourceFile;
 		this.destFile = destFile;
-	}
 
-	private String sourceFile;
-	
-	private String destFile;
+	}
 
 	public String getSourceFile() {
 		return sourceFile;
@@ -32,6 +33,5 @@ public class UserInput {
 	public void setDestFile(String destFile) {
 		this.destFile = destFile;
 	}
-	
-	
+
 }

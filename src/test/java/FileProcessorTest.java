@@ -17,6 +17,8 @@ import com.pizza.shop.model.Order;
 
 public class FileProcessorTest {
 
+	// write test case about crating 3 or 4 factory desing pattern object method
+	// validate at least 4 extension of files
 	String testFileName = "sample_data_ordered.txt";
 	String destinationPath = "output/output.txt";
 	File sourcefile;
@@ -92,7 +94,7 @@ public class FileProcessorTest {
 	@Test
 	public void checkSourceFileExtension() {
 
-		String extension = getFileExtension(sourcefile);
+		String extension = getFileExtension(testFileName);
 		if (extension.equalsIgnoreCase(ext)) {
 			assertEquals(true, true);
 		} else {
@@ -103,7 +105,7 @@ public class FileProcessorTest {
 
 	@Test
 	public void checkDesinationFileExtension() {
-		String extension = getFileExtension(destinationfile);
+		String extension = getFileExtension(destinationPath);
 		if (extension.equalsIgnoreCase(ext)) {
 			assertEquals(true, true);
 		} else {
@@ -125,8 +127,24 @@ public class FileProcessorTest {
 		}
 	}
 
-	private String getFileExtension(File file) {
-		int dot = file.getAbsolutePath().lastIndexOf(".");
-		return file.getAbsolutePath().substring(dot + 1);
+	@Test
+	public void testGetExtension() {
+	    assertEquals("", getFileExtension("D"));
+	    assertEquals("ext", getFileExtension("D.ext"));
+	    assertEquals("ext", getFileExtension("C:/ouput/input.ext"));
+	    assertEquals("ext", getFileExtension("A/B/C.ext"));
+	    assertEquals("doc", getFileExtension("D.doc"));
+	    assertEquals("doc", getFileExtension("A/M/C.doc"));
+	    assertEquals("docx", getFileExtension("E.docx"));
+	    assertEquals("docx", getFileExtension("A/B/C.docx"));
+	    assertEquals("pdf", getFileExtension("C.pdf"));
+	    assertEquals("pdf", getFileExtension("A/B/C.pdf"));
+	    assertEquals("", getFileExtension("E/B/C.ext/"));
+	    assertEquals("", getFileExtension("D/B/C.ext/.."));
+
+	}
+	private String getFileExtension(String fileName) {
+		int dot = fileName.lastIndexOf(".");
+		return fileName.substring(dot + 1);
 	}
 }

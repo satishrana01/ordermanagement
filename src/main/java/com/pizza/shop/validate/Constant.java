@@ -12,7 +12,7 @@ public enum Constant {
 
 	DATE_TIME_FORMAT("yyyyMMddHHmmss"),
 	
-	MISSING_ARGS("src file location, destination file parameters are missing"),
+	MISSING_ARGS("Src file location, destination file parameters are missing"),
 	
 	MISSING_INPUT("Input file name is missing"),
 	
