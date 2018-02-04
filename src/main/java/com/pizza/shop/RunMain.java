@@ -1,11 +1,9 @@
 package com.pizza.shop;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 import com.pizza.shop.factory.DataParserFactory;
-import com.pizza.shop.model.Order;
 import com.pizza.shop.model.SortByOrderName;
 import com.pizza.shop.model.UserInput;
 import com.pizza.shop.service.DataParser;

@@ -51,7 +51,7 @@ public class Order implements Comparable<Order> {
 	
 	@Override
 	public String toString() {
-	    return "Correct order [name=" + this.name + ", time=" + this.time + "]";
+	    return "name=" + this.name + ",time=" + this.time;
 	}
 
 }

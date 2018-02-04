@@ -8,14 +8,19 @@ package com.pizza.shop.validate;
  */
 public class Utility {
 
-	public static String getExtension(String fileName){
-		
-		String extension = "";
+	public static String getExtension(String fileName) {
 
-		int i = fileName.lastIndexOf('.');
-		if (i >= 0) {
-		    extension = fileName.substring(i+1);
-		}
-		return extension;
+		char ch;
+		int len;
+		if (fileName == null || (len = fileName.length()) == 0
+				|| (ch = fileName.charAt(len - 1)) == '/' || ch == '\\'
+				|| ch == '.')
+			return "";
+		int dotInd = fileName.lastIndexOf('.'), sepInd = Math.max(
+				fileName.lastIndexOf('/'), fileName.lastIndexOf('\\'));
+		if (dotInd <= sepInd)
+			return "";
+		else
+			return fileName.substring(dotInd + 1).toLowerCase();
 	}
 }
