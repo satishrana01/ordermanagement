@@ -14,7 +14,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.pizza.shop.factory.DataParserFactory;
 import com.pizza.shop.model.Order;
@@ -24,6 +26,7 @@ import com.pizza.shop.service.impl.DocFileParser;
 import com.pizza.shop.service.impl.PdfFileParser;
 import com.pizza.shop.service.impl.TextFileParser;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FileProcessorTest {
 
 	String txtFileName = "sample_data_ordered.txt";
@@ -104,7 +107,7 @@ public class FileProcessorTest {
 	}
 
 	@Test
-	public void testCheckOutputFileWritePermission() throws IOException {
+	public void testFileWritePermission() throws IOException {
 
 		assertEquals(true,
 				Files.isWritable(destinationfile.getParentFile().toPath()));
