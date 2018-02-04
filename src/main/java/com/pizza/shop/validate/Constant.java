@@ -18,6 +18,8 @@ public enum Constant {
 	
 	MISSING_OUTPUT("Outfile file name is missing"),
 	
+	MISSING_OUTPUT_EXT("Output file extension is missing"),
+	
 	EXTENSION("Only .txt file is permitted"),
 	
 	INVALID_SOURCEPATH("Input path is invalid"),

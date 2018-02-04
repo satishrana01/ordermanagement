@@ -20,9 +20,10 @@ public class ValidateInput {
 			message = Constant.MISSING_INPUT.getConstantValue();
 		else if (null == userInput.getDestFile() && userInput.getDestFile().isEmpty())
 			message = Constant.MISSING_OUTPUT.getConstantValue();
-		else if (!validatePath(userInput.getSourceFile())) {
+		else if (!validatePath(userInput.getSourceFile()))
 			message = Constant.INVALID_SOURCEPATH.getConstantValue();
-		}
+		else if (Utility.getExtension(userInput.getDestFile()).isEmpty())
+			message = Constant.MISSING_OUTPUT_EXT.getConstantValue();
 		return message;
 
 	}

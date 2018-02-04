@@ -25,11 +25,12 @@ import com.pizza.shop.model.SortByTime;
 import com.pizza.shop.service.impl.DocFileParser;
 import com.pizza.shop.service.impl.PdfFileParser;
 import com.pizza.shop.service.impl.TextFileParser;
+import com.pizza.shop.validate.Utility;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class FileProcessorTest {
 
-	String txtFileName = "sample_data_ordered.txt";
+	String sourceFileName = "sample_data_ordered.txt";
 	String destinationPath = "output/output.txt";
 	File sourcefile;
 	File destinationfile;
@@ -42,7 +43,7 @@ public class FileProcessorTest {
 	 * @throws FileNotFoundException
 	 */
 	public FileProcessorTest() throws FileNotFoundException {
-		sourcefile = new File(txtFileName);
+		sourcefile = new File(sourceFileName);
 		destinationfile = new File(destinationPath);
 		br = new BufferedReader(new FileReader(sourcefile));
 	}
@@ -115,25 +116,16 @@ public class FileProcessorTest {
 	}
 
 	@Test
-	public void testCheckSourceFileTXTExtension() {
+	public void testCheckSourceFileHasExtension() {
 
-		String extension = getFileExtension(txtFileName);
-		if (extension.equalsIgnoreCase(ext)) {
-			assertEquals(true, true);
-		} else {
-			assertEquals(true, false);
-		}
+		assertEquals(true, !Utility.getExtension(sourceFileName).isEmpty());
 
 	}
 
 	@Test
-	public void testCheckDesinationFileTXTExtension() {
-		String extension = getFileExtension(destinationPath);
-		if (extension.equalsIgnoreCase(ext)) {
-			assertEquals(true, true);
-		} else {
-			assertEquals(true, false);
-		}
+	public void testCheckDesinationFileHasExtension() {
+
+		assertEquals(true, !Utility.getExtension(destinationPath).isEmpty());
 
 	}
 

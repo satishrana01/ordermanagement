@@ -50,9 +50,12 @@ public class RunMain {
 					// Write the output File
 					
 					/***
-					 * implemented the strategy pattern here where user's has choice to decide at run time
-					 * whether to sort the object by name or by time by passing appropriate Comparator class object.
-					 * considering default as order by name 
+					 * Implemented the strategy pattern here where user's has choice to decide at run time
+					 * whether to sort the object by name or by time by passing appropriate Comparator class object to 
+					 * writeOutputFile(...). Here name is mapped with SortByOrderName and time with SortByTime class. In future 3rd
+					 * argument can be taken from user through command line or through web interface.
+					 * 
+					 * Considering default sorting by name.
 					 */
 					
 					status = dataParserObject.writeOutputFile(orderList, userInput.getDestFile(),new SortByOrderName());
